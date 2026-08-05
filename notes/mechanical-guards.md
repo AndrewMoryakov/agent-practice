@@ -32,6 +32,20 @@ Four that earned their place:
 Each of these is three lines of shell or a short test. Each fails loudly, which
 is the only property that matters: prose cannot notice it has become false.
 
+**Three of the four are patterns to reimplement, not code you can install.** They
+have to know your parser, your task-file format, your canonical number, so they
+live in the repository they guard. The fourth is repo-agnostic and ships here:
+
+```bash
+~/agent-practice/guards/check-cited-hashes.sh [path ...]
+```
+
+It reads hashes written in backticks and fails when one does not resolve. Run
+against a real documentation tree of 229 citations it took under a second. It
+refuses outright on a shallow clone, where absence would prove nothing. And it
+deliberately ignores bare words, because `succeeded` is seven hex characters and
+a broader scan cries wolf — the same lesson as the next section.
+
 ## Two ways to build the check wrong
 
 Both were learned by shipping them.

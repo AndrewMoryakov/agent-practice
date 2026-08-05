@@ -42,6 +42,22 @@ for skill in "$REPO"/skills/*/; do
     say "    already linked, leaving alone"
     continue
   fi
+  # A link already pointing at some *other* clone of this same repository is the
+  # drift condition, not a pre-existing foreign file: two clones means two
+  # versions of a practice and no way to tell which one loaded. Backing it up
+  # silently would hide exactly that. Refuse and let a person choose.
+  if [ -L "$target" ]; then
+    existing="$(readlink "$target")"
+    case "$existing" in
+      */skills/"$name")
+        say "    REFUSED: already linked to a different clone of this repository"
+        say "               $existing"
+        say "             Two clones drift. Remove one, or relink by hand."
+        exit 1
+        ;;
+    esac
+  fi
+
   if [ -e "$target" ] || [ -L "$target" ]; then
     mv "$target" "$target.backup-$STAMP"
     say "    existing copy kept as $name.backup-$STAMP"

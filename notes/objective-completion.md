@@ -45,7 +45,10 @@ internal turn. Measured: a 677-token prompt produced a reported 10.1M input
 tokens in a single invocation.
 
 So a pre-call check knows only the prompt size, and a post-call check fires after
-the money is spent. Treat such a budget as a **tripwire, not a cap**. The only
-control that actually stops spending mid-run is a process timeout — and a timeout
+the money is spent. Treat such a budget as a **tripwire, not a cap** — one CLI's
+own budget flag is documented by its integrators as a post-run accounting guard
+rather than a guaranteed pre-request limit. The one control observed to stop
+spending mid-run is a process timeout; that is what was tried, not a survey of
+everything that might work. And a timeout
 set too low reports ordinary work as needing a human, which trains everyone to
 raise it. Pick it from a measured distribution of run times, not from a guess.

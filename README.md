@@ -27,6 +27,11 @@ measurement refuted within two days, while reading it. The difference is when it
 loads: a skill is pulled in at the moment a claim is being written, not two
 hundred thousand tokens earlier.
 
+**`guards/check-cited-hashes.sh`** — the one guard here that is repo-agnostic
+enough to ship rather than describe: every commit hash cited in the docs must
+still exist in git. Verified against a tree with 229 citations, and against
+planted fakes to be sure it can fail.
+
 **`notes/mechanical-guards.md`** — how to stop documentation from drifting away
 from code, by comparing two sources of truth that already exist in the repository
 instead of asserting that a phrase appears. Includes the two ways to build such a
