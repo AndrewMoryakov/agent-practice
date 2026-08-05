@@ -41,6 +41,12 @@ check wrong, both learned by shipping them.
 command that exits zero, rather than with an agent's report. And the run that
 correctly refused to finish, which is the more useful of the two results.
 
+**`notes/memory-system-design.md`** — what a system holding an agent's knowledge has to
+guarantee, derived from how that knowledge was observed to fail rather than from a
+comparison of storage features. Includes the one failure mode — a process that loaded its
+inputs at startup and never learns they changed — that cost the most and that none of the
+tools surveyed address.
+
 **`notes/where-knowledge-belongs.md`** — the three-way split: knowledge that must
 fail loudly belongs in a check, knowledge that must arrive unbidden belongs in a
 skill, knowledge someone will go looking for belongs in a reference. Most
