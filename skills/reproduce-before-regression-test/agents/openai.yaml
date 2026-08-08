@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reproduce Before Regression Test"
+  short_description: "Turn a field failure into a deterministic regression test."
+  default_prompt: "Use $reproduce-before-regression-test to reproduce this failure before adding a regression test."

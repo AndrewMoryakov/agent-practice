@@ -1,0 +1,4 @@
+interface:
+  display_name: "Turn Review Finding Into Safe Fix"
+  short_description: "Convert an observed review finding into a minimal verified fix."
+  default_prompt: "Use $review-finding-to-safe-fix to implement the smallest verified fix for this finding."

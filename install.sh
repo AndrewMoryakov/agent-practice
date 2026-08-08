@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Links the skills in this repository into ~/.claude/skills.
+# Links the skills in this repository into Claude and Codex user-global skill
+# directories.
 #
 #   ./install.sh
 #
@@ -12,7 +13,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STAMP="$(date +%Y%m%d-%H%M%S)"
-DEST="$HOME/.claude/skills"
+DESTS=("$HOME/.claude/skills" "$HOME/.codex/skills")
 
 say() { printf '%s\n' "$*"; }
 
@@ -29,41 +30,43 @@ if ! ln -s "$probe/target" "$probe/link" 2>/dev/null || [ ! -L "$probe/link" ]; 
 fi
 rm -rf "$probe"
 
-mkdir -p "$DEST"
-say "Skills → $DEST"
+for dest in "${DESTS[@]}"; do
+  mkdir -p "$dest"
+  say "Skills → $dest"
 
-for skill in "$REPO"/skills/*/; do
-  [ -d "$skill" ] || continue
-  name="$(basename "$skill")"
-  target="$DEST/$name"
-  say "  $name"
+  for skill in "$REPO"/skills/*/; do
+    [ -d "$skill" ] || continue
+    name="$(basename "$skill")"
+    target="$dest/$name"
+    say "  $name"
 
-  if [ -L "$target" ] && [ "$(readlink "$target")" = "$REPO/skills/$name" ]; then
-    say "    already linked, leaving alone"
-    continue
-  fi
-  # A link already pointing at some *other* clone of this same repository is the
-  # drift condition, not a pre-existing foreign file: two clones means two
-  # versions of a practice and no way to tell which one loaded. Backing it up
-  # silently would hide exactly that. Refuse and let a person choose.
-  if [ -L "$target" ]; then
-    existing="$(readlink "$target")"
-    case "$existing" in
-      */skills/"$name")
-        say "    REFUSED: already linked to a different clone of this repository"
-        say "               $existing"
-        say "             Two clones drift. Remove one, or relink by hand."
-        exit 1
-        ;;
-    esac
-  fi
+    if [ -L "$target" ] && [ "$(readlink "$target")" = "$REPO/skills/$name" ]; then
+      say "    already linked, leaving alone"
+      continue
+    fi
+    # A link already pointing at some *other* clone of this same repository is the
+    # drift condition, not a pre-existing foreign file: two clones means two
+    # versions of a practice and no way to tell which one loaded. Backing it up
+    # silently would hide exactly that. Refuse and let a person choose.
+    if [ -L "$target" ]; then
+      existing="$(readlink "$target")"
+      case "$existing" in
+        */skills/"$name")
+          say "    REFUSED: already linked to a different clone of this repository"
+          say "               $existing"
+          say "             Two clones drift. Remove one, or relink by hand."
+          exit 1
+          ;;
+      esac
+    fi
 
-  if [ -e "$target" ] || [ -L "$target" ]; then
-    mv "$target" "$target.backup-$STAMP"
-    say "    existing copy kept as $name.backup-$STAMP"
-  fi
-  ln -s "$REPO/skills/$name" "$target"
-  say "    linked → $REPO/skills/$name"
+    if [ -e "$target" ] || [ -L "$target" ]; then
+      mv "$target" "$target.backup-$STAMP"
+      say "    existing copy kept as $name.backup-$STAMP"
+    fi
+    ln -s "$REPO/skills/$name" "$target"
+    say "    linked → $REPO/skills/$name"
+  done
 done
 
 say

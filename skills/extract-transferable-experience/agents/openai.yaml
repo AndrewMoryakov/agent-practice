@@ -1,0 +1,4 @@
+interface:
+  display_name: "Extract Transferable Experience"
+  short_description: "Turn project experience into reusable agent skills."
+  default_prompt: "Use $extract-transferable-experience to extract reusable skills from this project experience."
