@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnose Runtime Failure"
+  short_description: "Orchestrate evidence-first runtime failure diagnosis."
+  default_prompt: "Use $diagnose-runtime-failure to diagnose this runtime failure from evidence."

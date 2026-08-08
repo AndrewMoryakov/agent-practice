@@ -14,8 +14,9 @@ git clone git@github.com:AndrewMoryakov/agent-practice.git ~/agent-practice
 ~/agent-practice/install.sh
 ```
 
-That links `skills/` into `~/.claude/skills`. Skills are user-global, so there is
-no project path to configure.
+That links `skills/` into both `~/.claude/skills` and `~/.codex/skills`. Links,
+rather than copies, leave one canonical version of each practice. Skills are
+user-global, so there is no project path to configure.
 
 ## What is here
 
@@ -26,6 +27,32 @@ said "verify status against the code and tests" had three agents file claims tha
 measurement refuted within two days, while reading it. The difference is when it
 loads: a skill is pulled in at the moment a claim is being written, not two
 hundred thousand tokens earlier.
+
+**`skills/diagnose-runtime-failure`** — routes a runtime or integration failure
+through evidence capture, reproducibility, environment comparison, and client
+integration checks rather than treating these as competing workflows.
+
+**`skills/mcp-client-integration-review`** — distinguishes a persisted MCP
+configuration from a completed handshake, discovered tools, and a safe successful
+call. Each client gets its own result.
+
+**`skills/reproduce-before-regression-test`** — turns a field failure into a
+deterministic or explicitly probabilistic reproducer before it becomes a test.
+
+**`skills/environment-differential-diagnosis`** — compares real launch
+conditions, including redacted environment values and stdio/process boundaries,
+when the same artifact behaves differently.
+
+**`skills/review-finding-to-safe-fix`** — turns an established finding into the
+smallest authorized change that protects its invariant, choosing refusal, partial
+status, or warning by consequence.
+
+**`skills/agent-worktree-boundaries`** — keeps an agent from overwriting or
+silently incorporating another owner's changes in a shared workspace.
+
+**`skills/extract-transferable-experience`** — extracts reusable procedure from
+measured project experience while leaving project facts and private provenance in
+their proper home.
 
 **`guards/check-cited-hashes.sh`** — the one guard here that is repo-agnostic
 enough to ship rather than describe: every commit hash cited in the docs must
@@ -52,6 +79,9 @@ fail loudly belongs in a check, knowledge that must arrive unbidden belongs in a
 skill, knowledge someone will go looking for belongs in a reference. Most
 mistakes here are about timing, not content.
 
+**`notes/skill-adapters.md`** — separates agent-neutral skill procedures from
+the discovery, UI, and installation adapters required by different agent hosts.
+
 ## What is deliberately not here
 
 **Anything specific to a project.** Claims about a repository's own code belong in
@@ -70,6 +100,11 @@ useless outside the repository they came from.
 ## Status
 
 Used by one person across several projects, on Linux. The practice is on trial,
-not proven: the honest claim is that in one project it changed what a separate
-agent wrote, once, in a way that caught a real error. Treat the notes as measured
-reports, not as results that have been replicated.
+not proven: individual skills report their own evidence and limitations. The seven
+new engineering skills are candidates derived from observed work; they still need
+independent forward-tests outside the projects that produced them. Treat the notes
+as measured reports, not as results that have been replicated.
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE).

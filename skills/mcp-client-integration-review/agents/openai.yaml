@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review MCP Client Integration"
+  short_description: "Validate MCP integration through each client end to end."
+  default_prompt: "Use $mcp-client-integration-review to review this MCP server across configured clients."

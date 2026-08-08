@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnose Environment Differences"
+  short_description: "Compare launch environments when behavior differs by client."
+  default_prompt: "Use $environment-differential-diagnosis to isolate which launch difference changes this behavior."

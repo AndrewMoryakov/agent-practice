@@ -1,0 +1,4 @@
+interface:
+  display_name: "Protect Shared Workspaces"
+  short_description: "Make scoped changes safely in a shared workspace."
+  default_prompt: "Use $agent-worktree-boundaries to make scoped changes without disturbing existing work."
