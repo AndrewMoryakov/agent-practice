@@ -110,6 +110,12 @@ correlate a healthy item can share, and exclude the actor's own context. From a
 cleanup filter keyed on a port number that would have killed the live process
 and spared the dead one.
 
+**`notes/verify-redundancy-before-discarding.md`** — before deleting a copy you
+believe is redundant or superseded, compare its content against the authoritative
+version rather than trusting your account of where it came from; an unexpected
+difference is the finding. From a stale working copy that matched the last push in
+twelve of thirteen files and diverged in the thirteenth.
+
 ## What is deliberately not here
 
 **Anything specific to a project.** Claims about a repository's own code belong in
