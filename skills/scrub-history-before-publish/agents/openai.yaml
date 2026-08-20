@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scrub History Before Publish"
+  short_description: "Clean secrets from the whole git history, not just the tip, before an irreversible publish."
+  default_prompt: "Use $scrub-history-before-publish before making this repository or artifact public."

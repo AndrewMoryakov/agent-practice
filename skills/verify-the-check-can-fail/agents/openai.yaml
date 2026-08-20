@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify The Check Can Fail"
+  short_description: "Confirm a check goes red when its subject is broken before trusting green."
+  default_prompt: "Use $verify-the-check-can-fail to prove this check fails when the thing it inspects is broken."
