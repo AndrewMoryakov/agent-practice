@@ -54,6 +54,21 @@ silently incorporating another owner's changes in a shared workspace.
 measured project experience while leaving project facts and private provenance in
 their proper home.
 
+**`skills/verify-the-check-can-fail`** — a diagnostic or guard whose green
+result gates a decision must be shown to go red when its subject is broken. It
+traces the paths that let a check exit success without inspecting anything — a
+catch-less try that turns a mid-check error into a silent pass, a filter that
+matches nothing and reports all-clear, a status surface next to the real path
+that stays green while the used path fails. From a health check that exited zero
+having skipped most of its own checks.
+
+**`skills/scrub-history-before-publish`** — an irreversible publish exposes every
+commit, not the working tree. Scan the whole history for secrets and internal
+identifiers, rewrite the commits that carry them, drop the backup refs a rewrite
+leaves behind, and re-scan the published result. From a full-history scan that
+caught an internal address in an example file one commit back, before a public
+push.
+
 **`guards/check-cited-hashes.sh`** — the one guard here that is repo-agnostic
 enough to ship rather than describe: every commit hash cited in the docs must
 still exist in git. Verified against a tree with 229 citations, and against
@@ -82,6 +97,19 @@ mistakes here are about timing, not content.
 **`notes/skill-adapters.md`** — separates agent-neutral skill procedures from
 the discovery, UI, and installation adapters required by different agent hosts.
 
+**`notes/shared-network-trust-boundary.md`** — a service reachable through a
+shared network's gateway is reachable by every member of it, and address
+translation can map a neighbour into the address the service trusts. Verify the
+negative — that an unintended member cannot reach it — and scope exposure to the
+intended peers rather than strengthening the password. From a neighbour that
+read a protected surface with no credential at all.
+
+**`notes/destructive-selection-by-invariant.md`** — choose the targets of a
+destructive batch action by the property that defines a bad target, not a
+correlate a healthy item can share, and exclude the actor's own context. From a
+cleanup filter keyed on a port number that would have killed the live process
+and spared the dead one.
+
 ## What is deliberately not here
 
 **Anything specific to a project.** Claims about a repository's own code belong in
@@ -100,7 +128,7 @@ useless outside the repository they came from.
 ## Status
 
 Used by one person across several projects, on Linux. The practice is on trial,
-not proven: individual skills report their own evidence and limitations. The seven
+not proven: individual skills report their own evidence and limitations. The nine
 new engineering skills are candidates derived from observed work; they still need
 independent forward-tests outside the projects that produced them. Treat the notes
 as measured reports, not as results that have been replicated.
