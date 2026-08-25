@@ -61,6 +61,13 @@ in the code or the specification, and record it so it can be overturned rather
 than re-argued. Written after two forks were sent up whose deciding criterion the
 agent had already derived and written down.
 
+**`skills/verify-delegated-findings`** — a finding returned by a subagent or
+reviewer is a hypothesis with a citation attached. Give agents different lenses so
+their disagreement is informative, verify only the findings that will change what
+you do, and treat two agents contradicting each other as a thing to check rather
+than a vote. Written after one agent's top finding turned out to be half wrong
+with a worse real defect underneath it.
+
 **`skills/derived-identity-migration`** — a schema change that alters what a
 hash-derived identifier identifies cannot always restate it, because everything
 else references it. The half-migrated outcome is the dangerous one: rows upgrade
