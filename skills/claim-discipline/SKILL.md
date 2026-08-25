@@ -50,6 +50,11 @@ Before you write it:
    the count flat.
 4. **For "X is now fixed": is the test non-vacuous?** Disable the fix and watch
    the test fail. A test that passes with the code removed proves nothing.
+   Restore the fix from a copy you made, not from version control: while the fix
+   is uncommitted, `git checkout -- <file>` resolves to the last commit and
+   deletes the very change you were proving. Copy the file aside, mutate, copy
+   back, and confirm the restoration by grepping for the change rather than by
+   the command's exit status.
 5. **For a status change: does the record already contradict you?**
 
 If a claim can be checked mechanically, write the check instead of the sentence.

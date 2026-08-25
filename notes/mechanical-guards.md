@@ -78,6 +78,24 @@ passable — every failure keyed to a task, and the check comparing the failure
 Before adding a guard, make sure the existing ones are green. A red suite is a
 place for defects to hide.
 
+## A staleness clause guards what you were thinking about
+
+A planning document carried its own section titled "how to know this plan has
+gone stale", with two checks: the test counts are from commit X, and nothing yet
+emits a particular artifact. Nine commits later the document was indeed stale —
+but in neither of those ways. A work package listed as *not started* had been
+half implemented the day before, and both checks pointed at a different section.
+
+The lesson is not that the clause was badly written. It is that a hand-written
+staleness clause guards the claims whose fragility you happened to notice, and
+the claims that rot fastest are the **statuses**: what is done, what is blocked,
+what is next. Those change with every commit, and they are exactly what the next
+reader trusts.
+
+If a document names work packages and their states, the check to write is the
+one that ties a state to something in the tree — a merged commit, a passing test,
+a file that exists. Everything else is a promise to remember.
+
 ## Where to run it
 
 A check nothing invokes is prose with a shebang. Wire it to the moment the
