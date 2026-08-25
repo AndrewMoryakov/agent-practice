@@ -59,3 +59,12 @@ When you change what a component reads, writes, or claims:
 
 Step 4 is the general case of the other three: the question is never "is it
 green", it is "what would make it red".
+
+## The adjacent case
+
+`skills/verify-the-check-can-fail` covers the same hazard one level up: a
+diagnostic or guard whose green result gates a decision, and which can exit
+success without inspecting anything. This note is about tests that once proved
+something and stopped; that skill is about checks that never could. Both are
+answered by the same question — what would make this red?
+
