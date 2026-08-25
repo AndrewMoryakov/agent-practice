@@ -54,6 +54,19 @@ silently incorporating another owner's changes in a shared workspace.
 measured project experience while leaving project facts and private provenance in
 their proper home.
 
+**`skills/decide-or-escalate`** — which forks belong to the person you work for
+and which are yours. Escalate what moves the date, the scope, an external
+commitment, or cannot be undone; decide the rest from a criterion already present
+in the code or the specification, and record it so it can be overturned rather
+than re-argued. Written after two forks were sent up whose deciding criterion the
+agent had already derived and written down.
+
+**`skills/derived-identity-migration`** — a schema change that alters what a
+hash-derived identifier identifies cannot always restate it, because everything
+else references it. The half-migrated outcome is the dangerous one: rows upgrade
+cleanly and the first recomputation fails claiming corruption, which is true
+about the comparison and wrong about the cause.
+
 **`guards/check-cited-hashes.sh`** — the one guard here that is repo-agnostic
 enough to ship rather than describe: every commit hash cited in the docs must
 still exist in git. Verified against a tree with 229 citations, and against
@@ -81,6 +94,15 @@ mistakes here are about timing, not content.
 
 **`notes/skill-adapters.md`** — separates agent-neutral skill procedures from
 the discovery, UI, and installation adapters required by different agent hosts.
+
+**`notes/green-tests-that-stopped-proving.md`** — three ways a test keeps
+reporting green after it stopped guarding anything: it pins a claim that became
+false, its subject moved to another artifact, or its name asserts more than its
+body. Missing coverage is visible; this is not.
+
+**`notes/slice-boundaries.md`** — a slice boundary is only real if the tree can
+stop there compiling, with something to assert, and revertible alone. A change to
+a shared protocol type is atomic whether or not the plan says so.
 
 ## What is deliberately not here
 
