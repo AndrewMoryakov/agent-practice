@@ -16,6 +16,12 @@ A fork belongs to the person you work for when its answer moves one of:
 - an external commitment: spend, publication, another party's work;
 - anything irreversible or expensive to undo.
 
+Reversibility is a property of **today**, not of the fork. "Timestamps are
+expensive to change" is true after launch and false before it, and the same
+sentence therefore argues for opposite actions depending on when it is said.
+Price the reversal now, and note that the price is rising — that is often the
+argument for deciding rather than for escalating.
+
 Otherwise the fork is yours, provided a **discriminating criterion** exists in
 material you already hold: the code, the specification, or a decision already
 taken in this task. Find that criterion before asking anyone. Often it is already

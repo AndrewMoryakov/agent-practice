@@ -24,9 +24,16 @@ looking for data corruption that never happened.
 
 ## Procedure
 
+0. **Audit before any schema statement.** Recompute every existing identifier
+   from the fields still stored and compare with what is recorded. A gap here is
+   a finding, not a stop: it tells you whether the old identity is reproducible
+   at all, which decides whether a compatible redefinition is even available.
 1. **Enumerate the derived identifiers** that consume any field the change
    touches. Search for the hash inputs, not the hash names — a domain string, a
-   list of columns fed into a digest, a manifest serializer.
+   list of columns fed into a digest, a manifest serializer. Note that the input
+   is usually a *rendering* rather than a value: `100.5` and `100.50` hash
+   differently, so the format is part of the identity and has to be established
+   by measurement rather than assumed.
 2. For each, ask two questions in order:
    - does this change alter the value it would now compute?
    - can the migration restate the stored value?
@@ -44,6 +51,19 @@ looking for data corruption that never happened.
 6. **Test the refusal**, asserting that version history does not advance and the
    new structure does not appear. A refused upgrade must leave the store exactly
    as it was.
+
+## Two hazards that are not the migration
+
+**The lookup path changes meaning silently.** If intake deduplicates by
+computing the identifier, a scheme change gives the same logical item a new
+identifier and creates a second copy — no error anywhere. Put the uniqueness
+where it belongs, on the natural key, rather than relying on the identifier to
+carry it.
+
+**A superseded field becomes a frozen input.** The old column stops being the
+operational value and starts being the only evidence of what the stored
+identifier means. Keep it, in its original rendering, and say in the schema why
+it may not be dropped.
 
 ## Safety boundary
 

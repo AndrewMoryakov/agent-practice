@@ -43,9 +43,20 @@ resource you are managing.
    agents disagreeing have handed you a precise thing to check. Resolve it with
    the code, then say plainly which one was wrong — including when the wrong one
    supported the conclusion you preferred.
-5. **Report the grade you have, not the grade they claimed.** "Read only,
+5. **Re-grade severity yourself.** A tool's "critical" is a category from its
+   ruleset, not a judgement about your release. Inheriting it moves a decision
+   you were asked to make back onto a scanner.
+6. **Report the grade you have, not the grade they claimed.** "Read only,
    verified by me at file:line" and "read only, relayed" are different claims.
    See `claim-discipline`.
+7. **List what you did not check**, with the reason and the cost of checking it.
+   Findings that silently disappear between the report and your summary read as
+   findings that were resolved.
+
+The strongest verification is often not reading the code. Where a finding
+concerns behaviour, one test that reproduces or refutes it settles several
+findings at once and leaves something behind; reading is the fallback when the
+environment will not come up in the time you have.
 
 ## What this is not
 
