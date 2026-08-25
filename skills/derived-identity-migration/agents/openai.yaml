@@ -1,0 +1,4 @@
+interface:
+  display_name: "Migrating What An Identifier Identifies"
+  short_description: "Handle a schema change that alters what a hash-derived identifier identifies; refuse where identity cannot be restated."
+  default_prompt: "Use $derived-identity-migration before writing this migration: find the derived identifiers it invalidates."

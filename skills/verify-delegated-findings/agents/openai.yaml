@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Delegated Findings"
+  short_description: "Turn subagent or reviewer findings into evidence by verifying the ones that will change what you do."
+  default_prompt: "Use $verify-delegated-findings on these results before acting on them or relaying them."

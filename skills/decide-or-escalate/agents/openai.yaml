@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decide Or Escalate"
+  short_description: "Separate the choices that belong to the user from the ones that are yours, decide yours, and record them."
+  default_prompt: "Use $decide-or-escalate to settle this fork: find the criterion, decide if it is mine, and record the decision."

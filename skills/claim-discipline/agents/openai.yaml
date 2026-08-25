@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claim Discipline"
+  short_description: "Every consequential claim carries how it was established: reproduced, measured, or read only."
+  default_prompt: "Use $claim-discipline while writing this claim: name the command that establishes it, or grade it read only."
