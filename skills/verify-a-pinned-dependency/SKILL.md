@@ -27,21 +27,38 @@ problem you are about to hit.
 
 ## Procedure
 
-1. **Pin and exercise in one step.** The pin is not delivered until the capability
+0. **Compare the promise against your acceptance criterion, on paper, first.**
+   They are two texts written by different people for different purposes, and they
+   often describe different behaviours. "Duplicate requests are rejected" and "a
+   repeat returns the same response id" are not the same feature; if the artifact
+   only does the first, no configuration of it passes your test. This costs
+   minutes and can end the integration before it starts.
+1. **Resolve the pin to an immutable identity.** A tag is a label, not a version:
+   it can be moved, and a package published under it can be built from a later
+   state of the branch. Record the commit hash and check that the artifact you
+   installed came from it - otherwise you verify one thing and depend on another.
+2. **Pin and exercise in one step.** The pin is not delivered until the capability
    it was pinned for has run once, on that exact version, in your environment.
    Recording the hash and running it are not two tasks.
-2. **Check reachability before properties.** Can the thing be selected, loaded,
+3. **Check that a wrong value is refused.** Configure something deliberately
+   invalid and confirm it fails loudly. If the artifact silently falls back to a
+   default, then your correct setting could equally have applied to nothing, and
+   every green result below this line proves nothing about it.
+4. **Check reachability before properties.** Can the thing be selected, loaded,
    invoked at all? A feature list, an enum, a factory and a preflight guard are
    four different registries, and a capability added to three of them is
    unreachable. Verifying the elegant internals of something you cannot call is
    the trap.
-3. **Read the commits after the pin.** Not for a version bump — for work that
+5. **Run the acceptance test with the capability turned off**, and require it to
+   fail. A dedupe that also comes from a unique index, a retry in the client, or
+   the test harness itself will show green either way. See `claim-discipline`.
+6. **Read the commits after the pin.** Not for a version bump — for work that
    changes what you are about to attempt. Ask specifically: does anything here
    affect the property my acceptance test asserts?
-4. **Prefer the earliest failure.** An artifact that refuses at selection time
+7. **Prefer the earliest failure.** An artifact that refuses at selection time
    costs minutes. The same artifact failing later, deep in your integration, sends
    you looking in your own code for a defect that is not there.
-5. **Record what you ran**, not what you read. "Pinned at `<hash>`; recording pass
+8. **Record what you ran**, not what you read. "Pinned at `<hash>`; recording pass
    executed on it" is a different claim from "pinned at `<hash>`" and only one of
    them is evidence.
 

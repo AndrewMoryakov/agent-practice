@@ -18,7 +18,17 @@ otherwise let it run and watch it instead.
 **A pipeline's exit code.** In most shells the status of `a | b | c` is `c`'s.
 Append anything after the real command — a filter, a formatter, a second
 diagnostic — and a killed or failed job can report success. The status you read
-belongs to the last thing in the line, not to the thing you care about.
+belongs to the last thing in the line, not to the thing you care about. Where both
+halves matter — a decompressor feeding a loader, where the producer dying mid-file
+leaves the consumer to finish a truncated stream and exit clean — keep every
+status: `set -o pipefail` and copy `PIPESTATUS` into a variable on the very next
+line, because the next command of any kind overwrites it, including `rc=$?`.
+
+**The command's own success threshold.** Independently of the shell, a tool may
+report success having skipped what failed — a loader that continues past broken
+statements, an installer that reports partial success. Find its
+stop-on-first-error switch and turn it on, or its exit code is a third wrapper
+around the result.
 
 **A buffering filter.** `tail`, `head`, `sort` and friends emit nothing until the
 stream ends. Kill the job and the partial output — the part that would have told
@@ -38,9 +48,16 @@ the useful kind; filtering is for what has already finished.
    it matters.
 5. **If you must wait, wait on the condition**, not on a duration: loop until the
    artifact exists or the process is gone.
-6. **When it looks stuck, look at movement** — file size, log lines, a counter —
-   rather than concluding from elapsed time. Silence from a buffered filter and a
-   hung process look identical, and only one of them is a problem.
+6. **Detach so the work outlives your session.** Over a remote shell a job tied
+   to the connection dies with it; start it in its own session with input closed
+   and both streams redirected to files.
+7. **When it looks stuck, look at movement** — file size, log lines, a read
+   position, a row count — rather than concluding from elapsed time. "Stuck" means
+   two consecutive samples with no movement *and* a cause you can name from the
+   system's own state: waiting on a lock, no disk left, a producer that already
+   exited. Elapsed time on unmeasured work is not evidence of anything.
+8. **Stop waiting when the thing you are waiting for is gone.** A poll loop with
+   no liveness check will happily interrogate a corpse until its own deadline.
 
 ## What this prevents downstream
 
