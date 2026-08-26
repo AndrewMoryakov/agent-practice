@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify A Pinned Dependency"
+  short_description: "Treat a version pin as a claim and verify it by running the capability it was pinned for."
+  default_prompt: "Use $verify-a-pinned-dependency before depending on this pinned artifact."

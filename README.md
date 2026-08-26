@@ -68,6 +68,20 @@ you do, and treat two agents contradicting each other as a thing to check rather
 than a vote. Written after one agent's top finding turned out to be half wrong
 with a worse real defect underneath it.
 
+**`skills/verify-a-pinned-dependency`** — a version pin is a claim that nobody
+checked: it says "this version delivers X". Exercise the capability on that exact
+version before depending on it, check whether the thing can be *reached* before
+admiring its internals, and read the commits after the pin — they are often the ones
+that solve the problem you are about to hit. Written after a pinned commit whose
+exemplary commit message described properties that were real, in code that could not
+be selected at all.
+
+**`skills/observe-long-running-work`** — the failure is not that work takes long, it
+is that a wrapper's signal replaces the work's. An invented timeout, a pipeline exit
+code belonging to the last filter, and a buffering `tail` each report something other
+than what happened. Start detached and unbounded, write raw output to a file, decide
+the artifact that proves completion before starting, and verify by that.
+
 **`skills/derived-identity-migration`** — a schema change that alters what a
 hash-derived identifier identifies cannot always restate it, because everything
 else references it. The half-migrated outcome is the dangerous one: rows upgrade

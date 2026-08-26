@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observe Long-Running Work"
+  short_description: "Run unmeasured work so its outcome stays observable: no invented deadline, no buffering filter, verify by artifact."
+  default_prompt: "Use $observe-long-running-work before starting this long command."
