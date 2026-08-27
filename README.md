@@ -14,9 +14,26 @@ git clone git@github.com:AndrewMoryakov/agent-practice.git ~/agent-practice
 ~/agent-practice/install.sh
 ```
 
-That links `skills/` into both `~/.claude/skills` and `~/.codex/skills`. Links,
-rather than copies, leave one canonical version of each practice. Skills are
-user-global, so there is no project path to configure.
+That links `skills/` into `~/.claude/skills`, `~/.codex/skills`, and
+`~/.minimax/skills`. Links, rather than copies, leave one canonical version
+of each practice. Skills are user-global, so there is no project path to
+configure.
+
+### Windows
+
+Use `install.ps1` instead of `install.sh` — Git Bash silently falls back to
+copying when it cannot create a symlink, which would defeat the purpose. The
+PowerShell script probes link capability and falls back along the chain
+junction → symlink → copy. Directory junctions (`mklink /J`) work on any NTFS
+volume without Developer Mode or an elevated shell, so an ordinary Windows
+user gets a real link and `git pull` updates the skills automatically. The
+copy warning only fires when the filesystem itself refuses both link types
+(rare; mostly non-NTFS volumes).
+
+```powershell
+git clone https://github.com/AndrewMoryakov/agent-practice.git C:\projects\agent-practice
+C:\projects\agent-practice\install.ps1
+```
 
 ## What is here
 
