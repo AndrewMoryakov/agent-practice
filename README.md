@@ -18,6 +18,13 @@ That links `skills/` into both `~/.claude/skills` and `~/.codex/skills`. Links,
 rather than copies, leave one canonical version of each practice. Skills are
 user-global, so there is no project path to configure.
 
+Works on Linux and macOS without changes. The script avoids GNU-only
+features (no `readlink -f`, no `date` extensions, no GNU-only `find` flags)
+and uses the bash 3.2 syntax that ships with macOS. On macOS the default
+user shell is zsh since Catalina (10.15); either `bash install.sh`
+explicitly, or `chmod +x install.sh && ./install.sh`. Symlinks on macOS do
+not need any privilege elevation.
+
 ## What is here
 
 **`skills/claim-discipline`** — every consequential claim carries how it was

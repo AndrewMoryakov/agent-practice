@@ -10,9 +10,20 @@
 # copies: a copy forks from the repository the moment either side is edited, and
 # then you have two versions of a practice and no way to know which one loaded.
 #
-# Windows users: this script is the wrong tool. Use ./install.ps1 instead â€”
-# symlinks on Windows need Developer Mode or an elevated shell, and Git Bash
-# silently copies when it cannot create one, which would defeat the point.
+# Targets Linux and macOS. Tested with bash 3.2 (the version Apple ships
+# with macOS, pre-Homebrew) and bash 4+ / 5+ on Linux. The script avoids
+# GNU-only features: `mktemp -d`, `readlink` without flags, and case
+# patterns that work on both GNU and BSD variants. Symlinks on macOS do
+# not need any privilege elevation.
+#
+# On macOS the default user shell is zsh since Catalina (10.15); either
+# `bash install.sh` explicitly, or `chmod +x install.sh && ./install.sh`.
+# The shebang routes through env, so whatever bash is on PATH wins.
+#
+# Windows users: this script is the wrong tool. Use install.ps1 instead —
+# symlinks on Windows need Developer Mode or an elevated shell, and Git
+# Bash silently copies when it cannot create one, which would defeat the
+# point.
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
