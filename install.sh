@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Links the skills in this repository into Claude and Codex user-global skill
-# directories.
+# Links the skills in this repository into Claude, Codex, and MiniMax user-global
+# skill directories.
 #
 #   ./install.sh
 #
@@ -9,11 +9,18 @@
 # is deliberately much simpler than installing a memory store. Links rather than
 # copies: a copy forks from the repository the moment either side is edited, and
 # then you have two versions of a practice and no way to know which one loaded.
+#
+# Windows users: this script is the wrong tool. Use ./install.ps1 instead —
+# symlinks on Windows need Developer Mode or an elevated shell, and Git Bash
+# silently copies when it cannot create one, which would defeat the point.
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STAMP="$(date +%Y%m%d-%H%M%S)"
-DESTS=("$HOME/.claude/skills" "$HOME/.codex/skills")
+# Claude, Codex, and MiniMax Code all keep user-global skills under
+# $HOME/.…/skills with the same shape. Add a new host here when its
+# skill directory convention matches.
+DESTS=("$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.minimax/skills")
 
 say() { printf '%s\n' "$*"; }
 
@@ -61,8 +68,15 @@ for dest in "${DESTS[@]}"; do
     fi
 
     if [ -e "$target" ] || [ -L "$target" ]; then
-      mv "$target" "$target.backup-$STAMP"
-      say "    existing copy kept as $name.backup-$STAMP"
+      # Backups live OUTSIDE the skills directory. Inside it they would be
+      # indistinguishable from active skills: a host that indexes by
+      # `name:` from frontmatter (rather than by directory name) would
+      # find the backup, not the live link, and serve a frozen copy
+      # after the next `git pull` updates the live link.
+      backup_root="$(dirname "$dest")/skill-install-backups"
+      mkdir -p "$backup_root"
+      mv "$target" "$backup_root/$STAMP-$name"
+      say "    existing copy kept as $backup_root/$STAMP-$name"
     fi
     ln -s "$REPO/skills/$name" "$target"
     say "    linked → $REPO/skills/$name"
