@@ -30,11 +30,26 @@ Registration is not usability. Check every client independently.
 > v2 paths and module names below are accurate as of Mavis 3.0.67.128. Future
 > Mavis versions may shift them — verify before relying on specific paths.
 
+These checks **augment** the per-client contract above, not replace it.
+A v2 review should run both sets.
+
 v2 uses a different MCP architecture from v1. The "is it configured" check
 on `~/.minimax/mcp/mcp.json` is not enough — the runtime may silently drop
 entries that match the retirement filter.
 
-Additional checks for v2 (Mavis 3.0.67+):
+Worked example (from 2026-08-28 audit on this Mavis install):
+
+```text
+$ pgrep -af 'matrix-mcp-stdio'
+32576 .../matrix-mcp-stdio.js                # active, 1 process
+$ pgrep -af 'cu-mcp-stdio'
+                                          # no match — config says enabled, but not loaded
+$ sqlite3 runtime-state.sqlite \
+    'SELECT effectivePlugins FROM local_runtime_plugin_official_state'
+[]                                        # empty — no installations registered
+```
+
+Additional checks for v2 (verified at Mavis 3.0.67.128, 2026-08-28):
 
 1. **Process tree, not config.** Active MCPs are stdio children of the
    Electron NodeService utility process, not HTTP endpoints. Find them
@@ -43,9 +58,10 @@ Additional checks for v2 (Mavis 3.0.67+):
      Where-Object { $_.CommandLine -like '*<mcp-name>*' }`
    - Linux / macOS: `pgrep -af '<mcp-name>'` (e.g. `pgrep -af 'matrix-mcp-stdio'`)
    If no process matches, the MCP is not loaded even if the config says it is.
-2. **HTTP-MCP port 127.0.0.1:15321 is v1-only.** v2 does not bind
-   this port for any MCP. If the only evidence of "active MCP" is an
-   HTTP response on 15321, that is a v1 leftover, not v2.
+2. **HTTP-MCP port 127.0.0.1:15321 is v1-only.** v2 (verified at
+   3.0.67.128) does not bind this port for any MCP. If the only
+   evidence of "active MCP" is an HTTP response on 15321, that is a
+   v1 leftover, not v2.
 3. **Check the plugin registry in SQLite.** v2's authoritative state
    is `~/.minimax/v2/sqlite/runtime-state.sqlite`,
    `local_runtime_plugin_official_state` table. A populated
@@ -57,15 +73,16 @@ Additional checks for v2 (Mavis 3.0.67+):
    filter matches on:
    - the URL pattern `127.0.0.1:15321/mavis/mcp/cu` and
      `127.0.0.1:15321/mavis/mcp/trash` (and the `/mcp/cu` alias), or
-   - the metadata flags `mavisBuiltinMcpServer: "cu"` plus
-     `managedBy: "local-runtime"`.
+   - the metadata flags `mavisBuiltinMcpServer="cu"` plus
+     `managedBy="local-runtime"`.
    Either match causes the entry to be dropped at config-load.
    The `matrix` server has the same filter pattern but is
    re-injected as a builtin via `buildBuiltinMatrixServerConfig`.
    If a config has only the URL-trigger, the runtime will not
    start it, and the corresponding tools will not be available.
-   Use the documented alternative (`mavis-trash.cmd` CLI for
-   trash; in-process `cu` runtime adapter for cu).
+   Use the documented alternative (`mavis-trash` CLI, or
+   `mavis-trash.cmd` on Windows, for trash; in-process `cu`
+   runtime adapter for cu).
 5. **`mavis mcp call <name> <tool>` syntax assumes the MCP is alive.**
    It will fail with "connection refused" or similar for retired
    or unconfigured MCPs. Check the process tree first, not after
@@ -98,9 +115,11 @@ For v2 Mavis clients, also report:
 
 - `none` — not filtered.
 - `url: 127.0.0.1:15321/mavis/mcp/cu` — matched the loopback URL.
-- `metadata: mavisBuiltinMcpServer+managedBy` — matched the metadata flags.
+- `metadata: mavisBuiltinMcpServer="cu" + managedBy="local-runtime"` —
+  matched the metadata flags.
 - `re-injected-as-builtin` — would be filtered as user-config, but the
-  server has a separate builtin path that re-adds it (only `matrix` does this today).
+  server has a separate builtin path that re-adds it (as of Mavis
+  3.0.67.128, only `matrix` is re-injected).
 
 Good: "configured=true, initialized=false, health command returned X."
 Bad (v1): "All clients work because a direct SDK client connected."
