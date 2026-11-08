@@ -1,6 +1,6 @@
 ---
 name: explain-for-decision
-description: Explain a technical situation to the person who has to decide, when the detail has outgrown what they can hold. Change register rather than restating, lead with what changed for them, and name the one open question with its cost in their units. Use when they say they lost the thread, mention juggling other work, ask for plain or applied language, or when a decision has sat unanswered across turns.
+description: Explain a technical situation to the person who has to decide, in applied language first, with technical detail after it and shorter. Lead with what changed for them, say what is not verified or cannot be undone, and name the one open question with its cost in their units. Use before any report of finished, stopped or failed work, and whenever they say they lost the thread, mention juggling other work, ask for plain or applied language, or a decision has sat unanswered across turns.
 ---
 
 # Explain For a Decision
@@ -10,13 +10,16 @@ what I did, arranged in the order I did it, when what the person needed was a
 statement of what is now true and what they must choose.
 
 An owner running several projects at once has no spare attention for my
-chronology. Every identifier I keep — a commit hash, a file path, a flag name —
+chronology. Every identifier I put first — a commit hash, a file path, a flag name —
 costs them a lookup they will not perform, and each one pushes the actual
 question further down the page.
 
-## The signal to switch
+## When it applies
 
-Switch register when any of these appear, without being asked twice:
+Every report that closes a piece of work: finished, stopped, or failed. Waiting
+for a sign of overload means the first few reports go out in the wrong register.
+
+And, without being asked twice, whenever any of these appear:
 
 - "я не понял", "объясни прикладным языком", "слишком много технической информации";
 - they mention running other projects in parallel, or say they lost the details;
@@ -31,7 +34,7 @@ same way. Change the register: concrete case first, their units, no identifiers.
 
 ## The shape that works
 
-Five parts, in this order, and nothing else:
+Five parts, in this order, then the technical part if it helps:
 
 1. **What changed for you.** Not what I did. "Your fork was two months behind the
    main project; now it has everything the project has and nothing of yours is
@@ -47,10 +50,14 @@ Five parts, in this order, and nothing else:
 5. **What I need from you** — a word, not an analysis — and **what I will do
    without you**: the safe part I can get on with while they think.
 
-## What to strip
+## What goes second
 
-- Commit hashes, branch names, file paths, flag names, test names — unless they
-  will type it or read it themselves.
+Technical detail is not forbidden; it is subordinate. It goes after the applied
+part, under its own short heading, and is shorter than it. A reader who skips it
+must not lose the point.
+
+- Commit hashes, branch names, file paths, flag names, test names, counts: in the
+  technical part, or left out when they add nothing.
 - The chronology. They do not need to know what I tried first.
 - My reasoning about tooling. "I had to work around a credential store" is my
   problem, not theirs, unless it changes what they must do.
@@ -69,7 +76,7 @@ Five parts, in this order, and nothing else:
 
 ## Length
 
-An overloaded reader gets about 400 words. If it will not fit, the explanation is
+An overloaded reader gets about 400 words, most of them applied. If it will not fit, the explanation is
 carrying work that belongs elsewhere: the technical version goes into the
 repository record, the artifact page, or a follow-up they can ask for. Offer it in
 one line; do not deliver it unasked.
@@ -78,8 +85,8 @@ one line; do not deliver it unasked.
 
 When they asked for the detail. "Покажи порядок работ", "покажи запись" and
 "проверь, не потеряли ли" are requests for precision, and answering them in plain
-language is its own failure. This skill is for the moment the decision stalls, not
-for every message.
+language is its own failure. This skill is for reports that close a piece of work
+and for the moment a decision stalls, not for every message.
 
 ## Origin
 
@@ -92,5 +99,11 @@ five plain parts produced an immediate decision on the next step, plus a
 hypothesis of their own that turned out to be verifiable in two commands. Nothing had been missing from the technical version;
 what was missing was the form.
 
-**Confidence:** one session, one owner, one strong signal. The shape above is
+2026-11-08, the same owner, after a day of reports written as logs: technical
+detail may stay, as long as applied, product language dominates. Stripping every
+identifier over-corrects; the rule is order and proportion, not removal. The same
+day showed why the skill had not fired: it waited for a sign of overload, while
+an always-on instruction asking for more technical explanation was active.
+
+**Confidence:** two sessions, one owner, one strong signal and one refinement. The shape above is
 worth following; the 400-word figure is a heuristic, not a measurement.
