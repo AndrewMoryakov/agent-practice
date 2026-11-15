@@ -55,6 +55,14 @@ captured by waiting, at the same exact moment (pause the waited page, read its
 method when the difference is a handful of anti-aliased pixels. A large
 difference means something on the page is timer-driven (see above).
 
+## Checking the still state too
+
+When the page promises that an animation's resting state equals its last frame (so that reduced motion, a screenshot
+with animations off, or a print shows the final picture), check it the same way: open the page once with reduced
+motion (Playwright: `reducedMotion: "reduce"` on the context) and once seeked to the end, and compare the two pixel by
+pixel. Only looping decorations (a blink, a sparkle, drifting dust) may differ; a moved or missing object means its
+resting style is not its last keyframe. This is cheap enough to run for every new animated scene.
+
 ## Origin
 
 A 160-second cartoon of a children's game (2026-11-14). Frame sheets for review
@@ -65,6 +73,9 @@ frames took 0.5 s, the waited ones 89.5 s. The same project then used seeking
 in its test of the father's story lines, which change on the cartoon's
 timeline: every line was checked at the middle of its window without waiting
 160 seconds.
+
+The still-state comparison was added on 2026-11-15 for two later cartoons of the same game: four screens
+differed by 1,727 to 6,218 pixels of 1,370,904, all of them in loops (sparkles, a blink, dust); nothing had moved.
 
 **Confidence:** high for CSS animations in Chromium (measured); not checked in
 WebKit or Firefox.
