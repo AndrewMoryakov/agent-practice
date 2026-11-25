@@ -34,3 +34,10 @@ Good: a full-history scan finds an internal address in an example file, and the
 commit is rewritten before the public push.
 Bad: the current file is fixed, the tip looks clean, and the address still sits
 one commit back in public history.
+
+## Origin
+
+From a full-history scan that caught an internal address in an example file one commit back, before a public push.
+
+**Confidence:** one episode; recorded in the index when the skill was written
+and moved here, where it loads with the procedure.

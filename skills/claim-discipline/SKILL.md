@@ -79,3 +79,13 @@ So when the subject is a running process, a service, an external CLI or anything
 else that holds code in memory: **name the build, not just the run.** If you
 cannot determine it, say so — that is the honest grade. A symptom that
 contradicts the source is a staleness question before it is a bug report.
+
+## Origin
+
+Provenance for this one is in the text above rather than in an episode list: the
+`AGENTS.md` that stated the rule while three agents filed claims measurement
+refuted, and the defect filed as *reproduced* against a server process older than
+the build on disk.
+
+**Confidence:** two episodes across separate sessions, both diagnosed after the
+fact; the second is what added the build-versus-run distinction.

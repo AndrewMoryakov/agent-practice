@@ -31,3 +31,10 @@ A check that can report success without running its checks is worse than no chec
 
 Good: with the subject deliberately broken, the check goes red and exits non-zero.
 Bad: syntax parses, "all passed" prints, seven inspections never executed.
+
+## Origin
+
+From a health check that exited zero having skipped most of its own checks.
+
+**Confidence:** one episode; recorded in the index when the skill was written
+and moved here, where it loads with the procedure.
