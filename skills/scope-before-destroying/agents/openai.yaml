@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scope Before Destroying"
+  short_description: "Establish what a delete, prune, kill or overwrite will really touch before running it."
+  default_prompt: "Use $scope-before-destroying to establish the real scope of this destructive command before running it."

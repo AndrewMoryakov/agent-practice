@@ -127,6 +127,13 @@ leaves behind, and re-scan the published result. From a full-history scan that
 caught an internal address in an example file one commit back, before a public
 push.
 
+**`skills/scope-before-destroying`** — a destructive command is judged by what it
+removed, not by what it was meant to remove. Establish the real scope from the
+tool's semantics rather than from the flags typed, preview in the same user and
+privilege context, prefer a reversible form, keep the output, and report an
+overreach at once. From a log vacuum given a unit filter that the vacuum ignores,
+which deleted every archived journal file of a shared host.
+
 **`guards/check-cited-hashes.sh`** — the one guard here that is repo-agnostic
 enough to ship rather than describe: every commit hash cited in the docs must
 still exist in git. Verified against a tree with 229 citations, and against
